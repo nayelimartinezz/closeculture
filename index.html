@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en" style="background:#0a0a0a">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="theme-color" content="#0a0a0a"/><title>Close Culture — Direct Marketing for Sales Businesses</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+:root{
+  --black:#0a0a0a;--gold:#c9a84c;--gold-light:#e8c96a;--white:#f5f2ec;
+  --gray:#1a1a1a;--gray2:#2a2a2a;--gray3:#3a3a3a;--muted:#888;
+  --purple:#7F77DD;--teal:#1D9E75;--amber:#BA7517;--coral:#D85A30;--pad:1.25rem;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--black);color:var(--white);font-family:'DM Sans',sans-serif;overflow-x:hidden}
+
+/* LOGO */
+.cc-logo{display:inline-flex;align-items:center;line-height:1}
+.cc-logo .cc-close{font-family:Impact,'Arial Black',sans-serif;font-weight:900;color:var(--gold);letter-spacing:1px}
+.cc-logo .cc-slash{background:var(--gold);transform:skewX(-12deg);flex-shrink:0}
+.cc-logo .cc-culture{font-family:Impact,'Arial Black',sans-serif;font-weight:900;color:var(--white);letter-spacing:1px}
+.cc-logo.nav{font-size:16px}.cc-logo.nav .cc-slash{width:4px;height:22px;margin:0 7px}
+.cc-logo.footer-size{font-size:16px}.cc-logo.footer-size .cc-slash{width:4px;height:22px;margin:0 7px}
+.cc-logo.cta-size{font-size:clamp(28px,6vw,52px)}.cc-logo.cta-size .cc-slash{width:clamp(7px,1.5vw,12px);height:clamp(38px,7vw,70px);margin:0 clamp(8px,1.5vw,14px)}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:.85rem var(--pad);border-bottom:0.5px solid rgba(201,168,76,.15);backdrop-filter:blur(20px);background:rgba(10,10,10,.92)}
+.nav-links{display:flex;gap:1.5rem}
+.nav-links a{font-size:11px;font-weight:500;color:var(--muted);text-decoration:none;letter-spacing:.08em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--gold)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--gold);transition:all .3s}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(4.5px,4.5px)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(4.5px,-4.5px)}
+.mobile-menu{display:none;position:fixed;top:53px;left:0;right:0;bottom:0;background:rgba(10,10,10,.97);z-index:199;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:Impact,'Arial Black',sans-serif;font-size:32px;letter-spacing:.08em;color:var(--muted);text-decoration:none;transition:color .2s}
+.mobile-menu a:active{color:var(--gold)}
+
+/* HERO — fixed to fit viewport */
+.hero{
+  min-height:100svh;max-height:100svh;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:5rem var(--pad) 2rem;
+  position:relative;overflow:hidden;
+}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 60% 40%,rgba(201,168,76,.07) 0%,transparent 70%);pointer-events:none}
+.hero-eyebrow{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:.2em;text-transform:uppercase;margin-bottom:1rem;opacity:0;animation:fadeUp .8s .2s forwards}
+.hero-logo-wrap{margin-bottom:1.25rem;opacity:0;animation:fadeUp .8s .4s forwards}
+.hero-body{font-size:14px;font-weight:300;color:var(--muted);line-height:1.7;max-width:480px;margin-bottom:1.5rem;opacity:0;animation:fadeUp .8s .6s forwards}
+.hero-ctas{display:flex;gap:.75rem;flex-wrap:wrap;opacity:0;animation:fadeUp .8s .8s forwards}
+.hero-logo-wrap .cc-logo{font-size:clamp(32px,8vw,72px)}
+.hero-logo-wrap .cc-logo .cc-slash{width:clamp(8px,1.8vw,16px);height:clamp(44px,10vw,96px);margin:0 clamp(8px,1.8vw,16px)}
+.hero-stats{display:flex;gap:1.5rem;margin-top:1.5rem;opacity:0;animation:fadeUp .8s 1s forwards;flex-wrap:wrap}
+.hero-stat-n{font-family:Impact,'Arial Black',sans-serif;font-size:30px;color:var(--gold);line-height:1}
+.hero-stat-l{font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-top:2px}
+
+/* BUTTONS */
+.btn-gold{background:var(--gold);color:var(--black);font-size:12px;font-weight:600;padding:.7rem 1.5rem;border-radius:2px;border:none;cursor:pointer;letter-spacing:.06em;text-transform:uppercase;transition:background .2s,transform .15s;white-space:nowrap;-webkit-tap-highlight-color:transparent}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-1px)}
+.btn-outline{background:transparent;color:var(--white);font-size:12px;font-weight:500;padding:.7rem 1.5rem;border-radius:2px;border:1px solid rgba(255,255,255,.2);cursor:pointer;letter-spacing:.06em;text-transform:uppercase;transition:all .2s;white-space:nowrap;-webkit-tap-highlight-color:transparent}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+
+/* TICKER */
+.ticker{border-top:0.5px solid var(--gray3);border-bottom:0.5px solid var(--gray3);padding:.65rem 0;overflow:hidden}
+.ticker-inner{display:flex;gap:2.5rem;animation:ticker 22s linear infinite;white-space:nowrap;width:max-content}
+.ticker-item{font-family:Impact,'Arial Black',sans-serif;font-size:13px;letter-spacing:.12em;color:var(--muted);display:flex;align-items:center;gap:.75rem}
+.ticker-dot{width:4px;height:4px;background:var(--gold);border-radius:50%;flex-shrink:0}
+
+/* SECTIONS */
+section{position:relative;z-index:2}
+.pad{padding:4rem var(--pad)}
+.pad-alt{padding:4rem var(--pad);background:var(--gray)}
+.section-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:.2em;text-transform:uppercase;margin-bottom:.6rem}
+.section-title{font-family:Impact,'Arial Black',sans-serif;font-size:clamp(28px,6vw,56px);line-height:1;letter-spacing:.02em}
+.section-header{margin-bottom:2.5rem}
+
+/* ABOUT */
+.about-cards{display:flex;flex-direction:column;gap:1rem;margin-top:2rem}
+.about-card{background:var(--gray);border:0.5px solid var(--gray3);border-radius:4px;padding:1.25rem 1.25rem 1.25rem 1.5rem;position:relative;overflow:hidden;transition:border-color .2s}
+.about-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px}
+.about-card:nth-child(1)::before{background:var(--purple)}
+.about-card:nth-child(2)::before{background:var(--teal)}
+.about-card:nth-child(3)::before{background:var(--amber)}
+.about-card-title{font-size:13px;font-weight:600;margin-bottom:.4rem}
+.about-card-body{font-size:12px;color:var(--muted);line-height:1.7}
+
+/* SERVICES */
+.services-stack{display:flex;flex-direction:column;gap:1.5px;background:var(--gray3)}
+.service-card{background:var(--gray);padding:1.75rem var(--pad);transition:background .2s}
+.service-head{display:flex;align-items:center;gap:1rem;margin-bottom:.75rem}
+.service-icon{font-size:24px}
+.service-num{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:.1em}
+.service-title{font-family:Impact,'Arial Black',sans-serif;font-size:24px;letter-spacing:.02em}
+.service-body{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:1rem}
+.service-items{list-style:none;display:flex;flex-direction:column;gap:.35rem}
+.service-items li{font-size:12px;color:var(--muted);padding-left:.85rem;position:relative;line-height:1.5}
+.service-items li::before{content:'→';position:absolute;left:0;color:var(--gold);font-size:11px}
+
+/* RESULTS / SOCIAL PROOF */
+.results-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.5rem}
+.result-card{background:var(--gray2);border:0.5px solid var(--gray3);border-radius:4px;padding:1.25rem;position:relative}
+.result-n{font-family:Impact,'Arial Black',sans-serif;font-size:38px;color:var(--gold);line-height:1}
+.result-l{font-size:11px;color:var(--muted);line-height:1.5;margin-top:.25rem}
+.quote-block{background:var(--gray);border-left:3px solid var(--gold);padding:1rem 1.25rem;border-radius:0 4px 4px 0;margin-top:1rem}
+.quote-text{font-size:13px;color:var(--white);line-height:1.7;font-style:italic;margin-bottom:.5rem}
+.quote-attr{font-size:11px;color:var(--gold);font-family:'DM Mono',monospace;letter-spacing:.08em}
+
+/* CASE STUDY */
+.cs-badge{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;border:0.5px solid rgba(201,168,76,.3);padding:.3rem .75rem;border-radius:2px;display:inline-block;margin-bottom:1.25rem}
+.cs-challenge{background:var(--gray);border:0.5px solid var(--gray3);border-radius:4px;padding:1.5rem;margin-bottom:1rem}
+.cs-challenge-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.75rem}
+.cs-challenge-title{font-family:Impact,'Arial Black',sans-serif;font-size:22px;line-height:1.1;margin-bottom:.75rem}
+.cs-challenge-body{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:1.25rem}
+.cs-pillar{display:flex;align-items:flex-start;gap:.6rem;font-size:12px;color:var(--muted);margin-bottom:.4rem;line-height:1.5}
+.cs-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:3px}
+.cs-stats{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.cs-stat{background:var(--gray);border:0.5px solid var(--gray3);border-radius:4px;padding:1.25rem}
+.cs-stat-n{font-family:Impact,'Arial Black',sans-serif;font-size:44px;color:var(--gold);line-height:1}
+.cs-stat-l{font-size:11px;color:var(--muted);margin-top:.2rem;line-height:1.4}
+.cs-deliverables{background:var(--gray);border:0.5px solid var(--gray3);border-radius:4px;padding:1.25rem}
+.cs-del-title{font-size:12px;font-weight:600;margin-bottom:.75rem}
+.cs-tags{display:flex;flex-wrap:wrap;gap:.35rem}
+.cs-tag{font-size:10px;padding:3px 8px;border-radius:2px;background:var(--gray2);color:var(--muted);border:0.5px solid var(--gray3)}
+
+/* WHAT YOU GET — deliverables breakdown */
+.deliverables-list{display:flex;flex-direction:column;gap:.75rem;margin-top:1.5rem}
+.deliverable-item{display:flex;align-items:flex-start;gap:1rem;background:var(--gray);border-radius:4px;padding:1rem;border:0.5px solid var(--gray3)}
+.deliverable-icon{font-size:20px;flex-shrink:0;margin-top:2px}
+.deliverable-title{font-size:13px;font-weight:600;margin-bottom:.25rem}
+.deliverable-body{font-size:12px;color:var(--muted);line-height:1.6}
+
+/* CALENDAR */
+.cal-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:.5rem;margin:0 calc(-1 * var(--pad))}
+.cal-inner{display:flex;gap:8px;padding:1.25rem var(--pad);width:max-content}
+.cal-card{width:140px;flex-shrink:0;border-radius:4px;padding:.85rem;border:0.5px solid transparent;transition:transform .2s}
+.cal-day{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem;opacity:.6}
+.cal-type{font-size:9px;font-weight:700;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em}
+.cal-title{font-size:11px;line-height:1.5;color:var(--muted)}
+.c-grind{background:rgba(127,119,221,.08);border-color:rgba(127,119,221,.25)}.c-grind .cal-type{color:var(--purple)}
+.c-win{background:rgba(186,117,23,.08);border-color:rgba(186,117,23,.25)}.c-win .cal-type{color:var(--amber)}
+.c-team{background:rgba(29,158,117,.08);border-color:rgba(29,158,117,.25)}.c-team .cal-type{color:var(--teal)}
+.c-brand{background:rgba(216,90,48,.08);border-color:rgba(216,90,48,.25)}.c-brand .cal-type{color:var(--coral)}
+.cal-hint{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);text-align:center;margin-top:.5rem;letter-spacing:.05em;opacity:.6}
+
+/* PROCESS */
+.process-list{display:flex;flex-direction:column;gap:0;margin-top:2rem}
+.process-step{display:flex;gap:1.25rem;padding:1.25rem 0;border-bottom:0.5px solid var(--gray3);align-items:flex-start}
+.process-step:last-child{border-bottom:none}
+.step-num{font-family:Impact,'Arial Black',sans-serif;font-size:40px;color:var(--gold);opacity:.3;line-height:1;flex-shrink:0;width:44px}
+.step-title{font-size:14px;font-weight:600;margin-bottom:.3rem}
+.step-body{font-size:12px;color:var(--muted);line-height:1.7}
+
+/* PRICING */
+.pricing-stack{display:flex;flex-direction:column;gap:1rem;margin-top:2rem}
+.price-card{background:var(--black);border:0.5px solid var(--gray3);border-radius:4px;padding:1.5rem;position:relative;transition:border-color .2s}
+.price-card.featured{border-color:var(--gold);background:var(--gray2)}
+.price-badge{display:inline-block;background:var(--gold);color:var(--black);font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.12em;padding:3px 10px;margin-bottom:.75rem}
+.price-tier{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:.2em;text-transform:uppercase;margin-bottom:.5rem}
+.price-name{font-family:Impact,'Arial Black',sans-serif;font-size:28px;margin-bottom:.35rem;letter-spacing:.02em}
+.price-amount{font-family:Impact,'Arial Black',sans-serif;font-size:44px;color:var(--gold);line-height:1}
+.price-period{font-size:11px;color:var(--muted);margin-bottom:1.25rem}
+.price-divider{height:0.5px;background:var(--gray3);margin-bottom:1.25rem}
+.price-features{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.5rem}
+.price-features li{font-size:12px;color:var(--muted);padding-left:1.1rem;position:relative;line-height:1.5}
+.price-features li::before{content:'✓';position:absolute;left:0;color:var(--gold);font-size:11px}
+
+/* CONTACT — fixed CTAs */
+.contact-info{display:flex;flex-direction:column;gap:1rem;margin-bottom:2rem}
+.contact-item{display:flex;align-items:center;gap:.85rem;text-decoration:none;-webkit-tap-highlight-color:transparent}
+.contact-icon{width:38px;height:38px;background:var(--gray);border:0.5px solid var(--gray3);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.contact-label{font-family:'DM Mono',monospace;font-size:9px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1px}
+.contact-value{font-size:13px;color:var(--white)}
+.contact-form{background:var(--gray);border:0.5px solid var(--gray3);border-radius:4px;padding:1.5rem}
+.form-title{font-family:Impact,'Arial Black',sans-serif;font-size:22px;color:var(--gold);margin-bottom:1.25rem;letter-spacing:.02em}
+.form-row{margin-bottom:.85rem}
+.form-label{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.35rem;display:block}
+.form-input{width:100%;background:var(--gray2);border:0.5px solid var(--gray3);border-radius:2px;padding:.65rem .75rem;font-size:14px;color:var(--white);font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s;-webkit-appearance:none}
+.form-input:focus{border-color:var(--gold)}
+.form-input::placeholder{color:var(--muted)}
+textarea.form-input{resize:vertical;min-height:80px}
+
+/* CTA FINAL */
+.cta-final{padding:5rem var(--pad);text-align:center;position:relative;overflow:hidden}
+.cta-final::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(201,168,76,.05) 0%,transparent 70%)}
+.cta-logo-wrap{display:flex;justify-content:center;margin-bottom:1.5rem;position:relative;z-index:1}
+.cta-sub{font-size:15px;font-weight:300;color:var(--muted);max-width:420px;margin:0 auto 2rem;line-height:1.75;position:relative;z-index:1}
+.cta-btns{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+
+/* FOOTER — fixed clickable links */
+footer{padding:1.5rem var(--pad);border-top:0.5px solid var(--gray3);display:flex;flex-direction:column;gap:.75rem;align-items:flex-start}
+.footer-contact{display:flex;flex-direction:column;gap:.3rem}
+.footer-contact a{font-size:12px;color:var(--muted);text-decoration:none;font-family:'DM Mono',monospace;letter-spacing:.06em;transition:color .2s}
+.footer-contact a:hover{color:var(--gold)}
+.footer-copy{font-family:'DM Mono',monospace;font-size:10px;color:var(--gray3);letter-spacing:.08em}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .6s,transform .6s}
+.reveal.visible{opacity:1;transform:none}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* TABLET */
+@media(min-width:640px){
+  :root{--pad:2rem}
+  .about-cards{display:grid;grid-template-columns:1fr 1fr}
+  .about-cards .about-card:last-child{grid-column:span 2}
+  .results-grid{grid-template-columns:repeat(4,1fr)}
+  .cs-stats{grid-template-columns:repeat(2,1fr)}
+  .pricing-stack{display:grid;grid-template-columns:1fr 1fr}
+  .pricing-stack .price-card.featured{grid-column:span 2}
+  footer{flex-direction:row;justify-content:space-between;align-items:center}
+}
+
+/* DESKTOP */
+@media(min-width:900px){
+  :root{--pad:2.5rem}
+  /* ── DESKTOP FONT SCALE ~1.75x ── */
+  .nav-links a{font-size:13px}
+  .cc-logo.nav{font-size:22px}.cc-logo.nav .cc-slash{width:5px;height:30px;margin:0 9px}
+  .hero-eyebrow{font-size:13px}
+  .hero-body{font-size:18px;max-width:580px;line-height:1.8}
+  .hero-stat-n{font-size:48px}
+  .hero-stat-l{font-size:14px}
+  .btn-gold{font-size:15px;padding:.9rem 2.2rem}
+  .btn-outline{font-size:15px;padding:.9rem 2.2rem}
+  .ticker-item{font-size:16px}
+  .section-label{font-size:13px}
+  .about-card-title{font-size:17px}
+  .about-card-body{font-size:15px}
+  .about-card{padding:1.75rem 1.75rem 1.75rem 2rem}
+  .service-num{font-size:13px}
+  .service-body{font-size:16px}
+  .service-items li{font-size:15px}
+  .result-n{font-size:52px}
+  .result-l{font-size:15px}
+  .quote-text{font-size:17px;line-height:1.8}
+  .quote-attr{font-size:13px}
+  .cs-badge{font-size:12px}
+  .cs-challenge-label{font-size:12px}
+  .cs-challenge-title{font-size:26px}
+  .cs-challenge-body{font-size:15px}
+  .cs-pillar{font-size:14px}
+  .cs-stat-n{font-size:58px}
+  .cs-stat-l{font-size:14px}
+  .cs-del-title{font-size:15px}
+  .cs-tag{font-size:13px;padding:5px 12px}
+  .cal-day{font-size:12px}
+  .cal-type{font-size:13px}
+  .cal-title{font-size:14px}
+  .deliverable-icon{font-size:28px}
+  .deliverable-title{font-size:17px}
+  .deliverable-body{font-size:15px}
+  .step-num{font-size:52px}
+  .step-title{font-size:18px}
+  .step-body{font-size:15px}
+  .price-tier{font-size:13px}
+  .price-name{font-size:36px}
+  .price-amount{font-size:56px}
+  .price-period{font-size:14px}
+  .price-features li{font-size:15px}
+  .contact-label{font-size:12px}
+  .contact-value{font-size:17px}
+  .form-label{font-size:12px}
+  .form-input{font-size:16px}
+  .form-title{font-size:28px}
+  .cta-sub{font-size:20px;max-width:560px}
+  .footer-contact a{font-size:15px}
+  .footer-copy{font-size:12px}
+  p[style*="font-size:15px"]{font-size:18px}
+  p[style*="font-size:14px"]{font-size:17px}
+
+  body{cursor:none}
+  .hamburger{display:none}
+  .nav-links{display:flex}
+  .mobile-menu{display:none!important}
+  .hero{flex-direction:row;align-items:center;padding:5rem 2.5rem 2rem;min-height:100svh;max-height:100svh}
+  .hero-content{max-width:640px;flex:1}
+  .about-inner{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+  .about-cards{display:flex;flex-direction:column;gap:1rem;margin-top:0}
+  .about-cards .about-card:last-child{grid-column:auto}
+  .services-stack{display:grid;grid-template-columns:repeat(3,1fr)}
+  .service-card{padding:2.5rem 2rem}
+  .cs-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+  .cs-challenge{grid-row:span 2}
+  .process-list{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;position:relative}
+  .process-list::before{content:'';position:absolute;top:1.5rem;left:1rem;right:1rem;height:1px;background:linear-gradient(to right,var(--gold),transparent)}
+  .process-step{flex-direction:column;gap:.5rem;border-bottom:none;padding:0}
+  .pricing-stack{display:grid;grid-template-columns:repeat(3,1fr)}
+  .pricing-stack .price-card.featured{grid-column:auto}
+  .contact-inner{display:grid;grid-template-columns:1fr 1fr;gap:4rem}
+  .cal-scroll{margin:0;overflow:visible}
+  .cal-inner{display:grid;grid-template-columns:repeat(5,1fr);width:auto;padding:1.25rem 0}
+  .cal-card{width:auto}
+  .cal-hint{display:none}
+  footer{flex-direction:row}
+  .footer-contact{flex-direction:row;gap:1.5rem}
+  .results-grid{grid-template-columns:repeat(4,1fr)}
+}
+
+@media(max-width:899px){
+  .hamburger{display:flex}
+  .nav-links{display:none}
+  .cursor,.cursor-ring{display:none}
+}
+
+@supports(padding:max(0px)){
+  nav{padding-left:max(var(--pad),env(safe-area-inset-left));padding-right:max(var(--pad),env(safe-area-inset-right))}
+  footer{padding-bottom:max(1.5rem,env(safe-area-inset-bottom))}
+}
+:root{color-scheme:dark}html{background:#0a0a0a}body{background:#0a0a0a!important;color:#f5f2ec!important}</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor" style="display:none;position:fixed;width:8px;height:8px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;mix-blend-mode:difference"></div>
+<div class="cursor-ring" id="cursorRing" style="display:none;position:fixed;width:32px;height:32px;border:1px solid var(--gold);border-radius:50%;pointer-events:none;z-index:9998;mix-blend-mode:difference;transform:translate(-50%,-50%)"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#home" style="text-decoration:none">
+    <div class="cc-logo nav"><span class="cc-close">CLOSE</span><div class="cc-slash"></div><span class="cc-culture">CULTURE</span></div>
+  </a>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#work">Work</a>
+    <a href="#process">Process</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#services" onclick="closeMobile()">Services</a>
+  <a href="#work" onclick="closeMobile()">Work</a>
+  <a href="#process" onclick="closeMobile()">Process</a>
+  <a href="#pricing" onclick="closeMobile()">Pricing</a>
+  <a href="#contact" onclick="closeMobile()">Contact</a>
+</div>
+
+<!-- HERO — fits viewport -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Direct Marketing for Sales Businesses</p>
+    <div class="hero-logo-wrap">
+      <div class="cc-logo"><span class="cc-close">CLOSE</span><div class="cc-slash" style="width:clamp(8px,1.8vw,16px);height:clamp(44px,10vw,96px);margin:0 clamp(8px,1.8vw,16px)"></div><span class="cc-culture">CULTURE</span></div>
+    </div>
+    <p class="hero-body">We turn sales companies into magnetic brands that attract the best talent, retain top performers, and make the world see what's happening on the inside.</p>
+    <div class="hero-ctas">
+      <button class="btn-gold" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Book a Strategy Call</button>
+      <button class="btn-outline" onclick="document.getElementById('work').scrollIntoView({behavior:'smooth'})">See Our Work</button>
+    </div>
+    <div class="hero-stats">
+      <div><div class="hero-stat-n">3</div><div class="hero-stat-l">Core Pillars</div></div>
+      <div><div class="hero-stat-n">12</div><div class="hero-stat-l">Posts/Month</div></div>
+      <div><div class="hero-stat-n">1</div><div class="hero-stat-l">Shoot Day</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item"><span class="ticker-dot"></span>RECRUITMENT MARKETING</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>SALES MOTIVATION</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>TEAM & CULTURE</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>EMPLOYER BRANDING</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>INSTAGRAM STRATEGY</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>CONTENT PRODUCTION</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>CLOSE CULTURE</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>RECRUITMENT MARKETING</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>SALES MOTIVATION</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>TEAM & CULTURE</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>EMPLOYER BRANDING</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>INSTAGRAM STRATEGY</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>CONTENT PRODUCTION</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>CLOSE CULTURE</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="pad reveal" id="about">
+  <div class="about-inner">
+    <div>
+      <p class="section-label">Who We Are</p>
+      <h2 class="section-title" style="margin-bottom:1.25rem">Not Just a Marketing Agency.</h2>
+      <p style="font-size:15px;font-weight:300;color:var(--muted);line-height:1.8">Close Culture specializes exclusively in sales businesses. We understand the grind, the culture, the revolving door of talent — and we know exactly how to fix it.<br><br>Every strategy, every post, every piece of content is built around what makes your company different.</p>
+    </div>
+    <div class="about-cards">
+      <div class="about-card"><div class="about-card-title">Built for sales floors</div><div class="about-card-body">We speak your language — pipeline, quota, spiff, close rate. We build content around what actually drives a sales team.</div></div>
+      <div class="about-card"><div class="about-card-title">Quality over quantity.</div><div class="about-card-body">Our system turns a single day of filming into 12 high-quality posts per month.</div></div>
+      <div class="about-card"><div class="about-card-title">Quality over quantity</div><div class="about-card-body">12 highly strategic posts per month beats 30 mediocre ones every time. Every post has a job — recruit, motivate, or showcase.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="pad-alt reveal" id="services">
+  <div class="section-header">
+    <p class="section-label">What We Do</p>
+    <h2 class="section-title">Three Pillars. One Powerhouse Brand.</h2>
+  </div>
+  <div class="services-stack">
+    <div class="service-card">
+      <div class="service-head"><span class="service-icon">🎯</span><div><div class="service-num">01 / 03</div><div class="service-title">Recruitment</div></div></div>
+      <p class="service-body">Turn your company into the place every hungry rep is trying to get into. We build the content engine that fills your floor with talent.</p>
+      <ul class="service-items"><li>Job ad campaigns</li><li>Talent attraction content</li><li>Employer brand assets</li><li>Social sourcing strategy</li><li>Candidate nurture sequences</li></ul>
+    </div>
+    <div class="service-card">
+      <div class="service-head"><span class="service-icon">🔥</span><div><div class="service-num">02 / 03</div><div class="service-title">Motivation</div></div></div>
+      <p class="service-body">Keep your best reps fired up and performing every single day. We build the recognition and incentive content that makes winning feel real.</p>
+      <ul class="service-items"><li>Incentive campaigns</li><li>Rep recognition content</li><li>Leaderboard design</li><li>Sales contest materials</li><li>Internal comms strategy</li></ul>
+    </div>
+    <div class="service-card">
+      <div class="service-head"><span class="service-icon">👑</span><div><div class="service-num">03 / 03</div><div class="service-title">Culture</div></div></div>
+      <p class="service-body">Show the world what your company is actually made of. We capture the real energy on your floor and make it impossible to ignore.</p>
+      <ul class="service-items"><li>Culture showcase videos</li><li>Social media content</li><li>"Day in the life" stories</li><li>Team highlight reels</li><li>Values-driven campaigns</li></ul>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU GET -->
+<section class="pad reveal" id="deliverables">
+  <div class="section-header">
+    <p class="section-label">What's Included</p>
+    <h2 class="section-title">Everything You Need. Nothing You Don't.</h2>
+  </div>
+  <div class="deliverables-list">
+    <div class="deliverable-item"><span class="deliverable-icon">📅</span><div><div class="deliverable-title">30-Day Content Calendar</div><div class="deliverable-body">Every post planned, written, and scheduled for the full month before we go live. You always know what's coming next.</div></div></div>
+    <div class="deliverable-item"><span class="deliverable-icon">🎬</span><div><div class="deliverable-title">Monthly Shoot Day</div><div class="deliverable-body">One full day on your floor — 6 filming blocks, owner interviews, rep spotlights, floor B-roll, and close celebrations. Everything needed for the full month.</div></div></div>
+    <div class="deliverable-item"><span class="deliverable-icon">✍️</span><div><div class="deliverable-title">Captions + Hashtag Library</div><div class="deliverable-body">Every post gets a fully written caption and optimized hashtag set. You never write a caption again.</div></div></div>
+    <div class="deliverable-item"><span class="deliverable-icon">📊</span><div><div class="deliverable-title">Weekly Performance Report</div><div class="deliverable-body">We track recruit DMs, follower growth, and engagement every week. You know exactly what's working.</div></div></div>
+    <div class="deliverable-item"><span class="deliverable-icon">🏆</span><div><div class="deliverable-title">Contest + Incentive Campaign</div><div class="deliverable-body">One fully designed sales contest per month — name, rules, graphics, hype posts, and winner announcement.</div></div></div>
+    <div class="deliverable-item"><span class="deliverable-icon">🎯</span><div><div class="deliverable-title">Strategy Session</div><div class="deliverable-body">Monthly call to review performance, plan the next shoot day, and adjust the content strategy based on what's converting.</div></div></div>
+  </div>
+</section>
+
+<!-- CASE STUDY -->
+<section class="pad-alt reveal" id="work">
+  <p class="section-label">Featured Work</p>
+  <h2 class="section-title" style="margin-bottom:1.25rem">Kingz 8 Way Corp</h2>
+  <div class="cs-badge">Case Study · Instagram Strategy</div>
+  <div class="cs-grid">
+    <div class="cs-challenge">
+      <div class="cs-challenge-label">The Challenge</div>
+      <div class="cs-challenge-title">A company doing real things — but the world couldn't see it.</div>
+      <p class="cs-challenge-body">Kingz 8 Way Corp had the team, the energy, and the results. What they lacked was a visual identity and content strategy that showed the world what was already happening inside. Close Culture built it from scratch — brand strategy, shoot day plan, 12-post monthly calendar, interview guide, caption library, and full visual direction.</p>
+      <div class="cs-pillar"><div class="cs-dot" style="background:var(--purple)"></div>Recruitment — attract candidates via organic content</div>
+      <div class="cs-pillar"><div class="cs-dot" style="background:var(--amber)"></div>Motivation — recognition, contests, internal campaigns</div>
+      <div class="cs-pillar"><div class="cs-dot" style="background:var(--teal)"></div>Culture — capture what makes Kingz different</div>
+      <div class="cs-pillar"><div class="cs-dot" style="background:var(--coral)"></div>Visual direction — @moxieonepercent · @the___grit · @modusvision</div>
+    </div>
+    <div class="cs-stats">
+      <div class="cs-stat"><div class="cs-stat-n">12</div><div class="cs-stat-l">Posts planned from one shoot day</div></div>
+      <div class="cs-stat"><div class="cs-stat-n">40</div><div class="cs-stat-l">Unique post ideas across 4 content types</div></div>
+    </div>
+    <div class="cs-deliverables">
+      <div class="cs-del-title">Deliverables produced</div>
+      <div class="cs-tags">
+        <span class="cs-tag">30-day calendar</span><span class="cs-tag">Brand strategy</span><span class="cs-tag">Shoot day plan</span><span class="cs-tag">Interview guide</span><span class="cs-tag">Caption library</span><span class="cs-tag">Pitch script</span><span class="cs-tag">Visual identity</span><span class="cs-tag">Content guidelines</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CALENDAR PREVIEW -->
+<section class="pad reveal">
+  <div class="section-header">
+    <p class="section-label">Content Strategy</p>
+    <h2 class="section-title">Sample Content Calendar — Week 1</h2>
+  </div>
+  <div class="cal-scroll">
+    <div class="cal-inner">
+      <div class="cal-card c-brand"><div class="cal-day">Mon</div><div class="cal-type">Brand</div><div class="cal-title">Brand intro reel — "This is Kingz"</div></div>
+      <div class="cal-card c-grind"><div class="cal-day">Tue</div><div class="cal-type">Grind</div><div class="cal-title">Morning floor reel — 8am energy</div></div>
+      <div class="cal-card c-team"><div class="cal-day">Wed</div><div class="cal-type">Team</div><div class="cal-title">"Meet the team" rep carousel</div></div>
+      <div class="cal-card c-win"><div class="cal-day">Thu</div><div class="cal-type">Win</div><div class="cal-title">First close — bell ring reaction</div></div>
+      <div class="cal-card c-brand"><div class="cal-day">Fri</div><div class="cal-type">Brand</div><div class="cal-title">Core values graphic — dark + bold</div></div>
+    </div>
+  </div>
+  <p class="cal-hint">← swipe to see all →</p>
+</section>
+
+<!-- SOCIAL PROOF / RESULTS -->
+<section class="pad-alt reveal" id="results">
+  <div class="section-header">
+    <p class="section-label">Why It Works</p>
+    <h2 class="section-title">Content That Actually Moves the Needle.</h2>
+  </div>
+  <div class="results-grid">
+    <div class="result-card"><div class="result-n">12</div><div class="result-l">Strategic posts per month — quality over quantity</div></div>
+    <div class="result-card"><div class="result-n">3×</div><div class="result-l">More recruit DMs from strategic culture content vs job ads alone</div></div>
+    <div class="result-card"><div class="result-n">$0</div><div class="result-l">Ad spend needed — all organic content strategy</div></div>
+    <div class="result-card"><div class="result-n">30</div><div class="result-l">Days from signed contract to first post going live</div></div>
+  </div>
+  <div class="quote-block">
+    <div class="quote-text">"Most agencies focus on customer-facing marketing. Close Culture focuses on what happens inside the company — the floor, the team, the wins. That's what candidates and current reps actually want to see."</div>
+    <div class="quote-attr">— Nayeli Martinez, Founder · Close Culture</div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="pad reveal" id="process">
+  <div class="section-header">
+    <p class="section-label">How It Works</p>
+    <h2 class="section-title">Signed to Posted in 30 Days.</h2>
+  </div>
+  <div class="process-list">
+    <div class="process-step"><div class="step-num">01</div><div><div class="step-title">Strategy Session</div><div class="step-body">We audit your current presence, identify your best stories, and build your 3-pillar content strategy from scratch.</div></div></div>
+    <div class="process-step"><div class="step-num">02</div><div><div class="step-title">Shoot Day</div><div class="step-body">One full day on your floor. 6 filming blocks. Everything needed for a full month captured in one day.</div></div></div>
+    <div class="process-step"><div class="step-num">03</div><div><div class="step-title">Edit & Schedule</div><div class="step-body">We edit, caption, hashtag, and schedule all 12 posts. You approve before anything goes live.</div></div></div>
+    <div class="process-step"><div class="step-num">04</div><div><div class="step-title">Track & Optimize</div><div class="step-body">Weekly reports, monthly strategy calls, and continuous optimization based on what's driving real results.</div></div></div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pad-alt reveal" id="pricing">
+  <div class="section-header">
+    <p class="section-label">Investment</p>
+    <h2 class="section-title">Simple. Transparent. Results-Driven.</h2>
+  </div>
+  <div class="pricing-stack" style="max-width:480px;margin:2rem auto 0">
+    <div class="price-card featured" style="text-align:center">
+      <div class="price-badge">ONE SIMPLE PLAN</div>
+      <div class="price-tier">Full Service</div>
+      <div class="price-name">Full Floor</div>
+      <div class="price-amount">$800</div>
+      <div class="price-period">per month · 3-month minimum</div>
+      <div class="price-divider"></div>
+      <ul class="price-features" style="text-align:left;display:inline-block">
+        <li>All 3 pillars active</li>
+        <li>12 posts per month</li>
+        <li>Monthly shoot day included</li>
+        <li>Full caption + hashtag library</li>
+        <li>Contest + incentive campaign</li>
+        <li>Weekly performance report</li>
+        <li>Monthly strategy call</li>
+      </ul>
+      <div style="margin-top:1.5rem">
+        <button class="btn-gold" style="width:100%" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Book a Free Strategy Call</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT — all CTAs now functional -->
+<section class="pad reveal" id="contact">
+  <div class="section-header">
+    <p class="section-label">Let's Talk</p>
+    <h2 class="section-title">Ready to Close More Culture?</h2>
+  </div>
+  <div class="contact-inner">
+    <div>
+      <p style="font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:1.5rem">Ready to build a brand your sales floor is proud of? Reach out directly — every link below actually works.</p>
+      <div class="contact-info">
+        <a class="contact-item" href="tel:9494496176">
+          <div class="contact-icon">📱</div>
+          <div><div class="contact-label">Phone — tap to call</div><div class="contact-value">(949) 449-6176</div></div>
+        </a>
+        <a class="contact-item" href="mailto:Nayellii.m716@gmail.com?subject=Close Culture Strategy Call&body=Hi Nayeli, I'm interested in learning more about Close Culture.">
+          <div class="contact-icon">✉️</div>
+          <div><div class="contact-label">Email — tap to send</div><div class="contact-value">Nayellii.m716@gmail.com</div></div>
+        </a>
+        <a class="contact-item" href="https://instagram.com/closeculture_" target="_blank" rel="noopener">
+          <div class="contact-icon">📸</div>
+          <div><div class="contact-label">Instagram — tap to open</div><div class="contact-value">@closeculture_</div></div>
+        </a>
+      </div>
+    </div>
+    <div class="contact-form">
+      <div class="form-title">Book a Free Strategy Call</div>
+      <div class="form-row"><label class="form-label">Your Name</label><input class="form-input" type="text" placeholder="First & Last Name" autocomplete="name"/></div>
+      <div class="form-row"><label class="form-label">Company Name</label><input class="form-input" type="text" placeholder="Your Sales Company"/></div>
+      <div class="form-row"><label class="form-label">Phone / Email</label><input class="form-input" type="text" placeholder="Best way to reach you" autocomplete="tel"/></div>
+      <div class="form-row"><label class="form-label">Team Size</label><input class="form-input" type="text" placeholder="How many reps on your floor?"/></div>
+      <div class="form-row" style="margin-bottom:1.25rem"><label class="form-label">Biggest Challenge</label><textarea class="form-input" placeholder="Recruiting / Retention / Culture / All three"></textarea></div>
+      <button class="btn-gold" style="width:100%;padding:.85rem" onclick="handleSubmit()">Send Message →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<div class="cta-final reveal">
+  <div class="cta-logo-wrap">
+    <div class="cc-logo cta-size"><span class="cc-close">CLOSE</span><div class="cc-slash"></div><span class="cc-culture">CULTURE</span></div>
+  </div>
+  <p class="cta-sub">Your floor is doing real things. Let's make sure the world sees it — starting with one shoot day.</p>
+  <div class="cta-btns">
+    <button class="btn-gold" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Start Today — $800/mo · 12 Posts</button>
+    <a href="https://instagram.com/closeculture_" target="_blank" rel="noopener"><button class="btn-outline">Follow @closeculture_</button></a>
+  </div>
+</div>
+
+<!-- FOOTER — all links functional -->
+<footer>
+  <div class="cc-logo footer-size"><span class="cc-close">CLOSE</span><div class="cc-slash"></div><span class="cc-culture">CULTURE</span></div>
+  <div class="footer-contact">
+    <a href="mailto:Nayellii.m716@gmail.com?subject=Close Culture Inquiry">Nayellii.m716@gmail.com</a>
+    <a href="tel:9494496176">(949) 449-6176</a>
+    <a href="https://instagram.com/closeculture_" target="_blank" rel="noopener">@closeculture_</a>
+  </div>
+  <div class="footer-copy">© 2026 Close Culture · Direct Marketing for Sales Businesses</div>
+</footer>
+
+<script>
+// Mobile menu
+const ham=document.getElementById('hamburger');
+const mob=document.getElementById('mobileMenu');
+ham.addEventListener('click',()=>{ham.classList.toggle('open');mob.classList.toggle('open');document.body.style.overflow=mob.classList.contains('open')?'hidden':''});
+function closeMobile(){ham.classList.remove('open');mob.classList.remove('open');document.body.style.overflow=''}
+
+// Form submit → opens mail
+function handleSubmit(){
+  const name=document.querySelector('input[autocomplete="name"]').value||'';
+  const company=document.querySelectorAll('.form-input')[1].value||'';
+  const contact=document.querySelector('input[autocomplete="tel"]').value||'';
+  const team=document.querySelectorAll('.form-input')[3].value||'';
+  const challenge=document.querySelector('textarea').value||'';
+  const body=`Hi Nayeli,%0A%0AName: ${name}%0ACompany: ${company}%0AContact: ${contact}%0ATeam Size: ${team}%0AChallenge: ${challenge}%0A%0ALooking forward to connecting!`;
+  window.location.href=`mailto:Nayellii.m716@gmail.com?subject=Close Culture Strategy Call - ${company}&body=${body}`;
+}
+
+// Desktop cursor
+if(window.innerWidth>=900){
+  const cur=document.getElementById('cursor');
+  const ring=document.getElementById('cursorRing');
+  cur.style.display='block';ring.style.display='block';
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx-4+'px';cur.style.top=my-4+'px'});
+  function animRing(){rx+=(mx-rx)*.15;ry+=(my-ry)*.15;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing)}
+  animRing();
+  document.querySelectorAll('button,a').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{cur.style.transform='scale(2.5)';ring.style.transform='translate(-50%,-50%) scale(1.5)'});
+    el.addEventListener('mouseleave',()=>{cur.style.transform='scale(1)';ring.style.transform='translate(-50%,-50%) scale(1)'});
+  });
+}
+
+// Scroll reveal
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
